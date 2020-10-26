@@ -1,0 +1,39 @@
+/********************* TAG Selectors ********************/
+
+/* It's best to put the properties in alphabetical order. */
+h1 {
+    color: red;
+    font-size: 3rem;
+}
+
+img:hover {
+    background-color: gold;
+}
+
+/*
+img {
+    background-color: red;
+}
+*/
+
+/********************* CLASS Selectors ********************/
+
+.bacon {
+    background-color:green;
+}
+
+.broccoli {
+    background-color: red;
+    height: 160px;
+}
+
+.circular {
+    border-radius: 90px;
+}
+
+
+/********************* ID Selectors ********************/
+
+#heading {
+    color: blue;
+}
