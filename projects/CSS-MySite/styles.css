@@ -11,20 +11,34 @@ body {
 }
 
 h1 {
-    margin-top: 0;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
     font-family: 'EB Garamond', serif;
+    font-size: 5.625em;
+    line-height: 2;
+}
+
+h1, h2 {
+    color: #66BFBF;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin-bottom: 35px;
 }
 
 h2, h3 {
     font-family: 'Architects Daughter', cursive;
 }
 
+h3 {
+    color: #11999E;
+}
+
 /************ Shared Styles ************/
 
 .content-container {
     width:100x;
-    height:449px;
 }
 
 .content-container p {
@@ -40,12 +54,11 @@ h2, h3 {
 }
 
 .middle-container {
-    background-color: red;
 
 }
 
 .bottom-container {
-    background-color: blue;
+
 }
 
 .pro {
@@ -66,4 +79,48 @@ h2, h3 {
     position: absolute;
     left: 300px;
     bottom: 300xp;
+}
+
+.profile {
+    padding: 20px 0;
+}
+
+.profile img {
+    width: 150px;
+    border-radius: 90px;;
+}
+
+.skills {
+    padding: 20px 0;
+}
+
+.contact-me {
+    padding: 20px 0;
+}
+
+.skill-img {
+    width: 200px;
+    float: left;
+    margin-right: 30px;
+}
+
+.skill-row {
+    width: 50%;
+    margin: 100px auto;
+}
+
+.skill-row h3, p {
+    text-align: left;
+}
+
+.skill-row h3 {
+    padding-top: 30px;
+}
+
+.skill-row p {
+    line-height: 2;
+}
+
+.contact-me h3, p {
+    text-align: center;
 }
