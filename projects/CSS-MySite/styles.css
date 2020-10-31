@@ -38,7 +38,7 @@ h3 {
 /************ Shared Styles ************/
 
 .content-container {
-    width:100x;
+    width:100%;
 }
 
 .content-container p {
@@ -51,14 +51,6 @@ h3 {
     background-color: #e4f9f5;
     position: relative;
     padding-top: 100px;
-}
-
-.middle-container {
-
-}
-
-.bottom-container {
-
 }
 
 .pro {
@@ -86,7 +78,7 @@ h3 {
 }
 
 .profile img {
-    width: 150px;
+    width: 180px;
     border-radius: 90px;;
 }
 
@@ -102,6 +94,16 @@ h3 {
     width: 200px;
     float: left;
     margin-right: 30px;
+}
+
+.img-1 {
+    float: left;
+    margin-right: 30px;
+}
+
+.img-2 {
+    float: right;
+    margin-left: 30px;
 }
 
 .skill-row {
@@ -123,4 +125,43 @@ h3 {
 
 .contact-me h3, p {
     text-align: center;
+}
+
+.contact-me a {
+    line-height: 10rem;
+    border-radius: 6px;;
+}
+
+hr {
+    border-style: none;
+    border-top-style: dotted;
+    border-color: #c2d5d5;
+    border-width: 7px;
+    width: 6%;
+    margin: 80px auto;
+}
+
+.bottom-container {
+    background-color:  #66BFBF;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
+.bottom-container p {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:  #EAF6F6;
+}
+
+.footer-link {
+    color:  #11999E;
+    text-decoration: none;
+    margin: 0 20px;
+}
+
+.btn {
+    padding: 10px;
+    background-color:   #66BFBF;
+    color: #EAF6F6;
+    text-decoration: none;
 }
