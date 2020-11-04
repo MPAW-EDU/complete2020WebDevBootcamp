@@ -1,0 +1,31 @@
+
+#title {
+    background-color: #ff4c68;
+}
+
+.btn:hover {
+    background-color: rgb(177, 42, 42);
+}
+
+.container-fluid {
+    padding: 3% 15%;
+}
+
+h1 {
+    font-family: 'Montserrat-black', sans-serif;
+    font-size: 3rem;
+    line-height: 1.5;
+}
+
+.navbar-brand {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.icon {
+    width: 40px;
+    padding-right: 15px;
+}
+
+.play {
+    padding: 4px 15px 4px 0;
+}
