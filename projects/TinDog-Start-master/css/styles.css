@@ -3,6 +3,17 @@
     background-color: #ff4c68;
 }
 
+#mockup {
+    transform: rotate(25deg);
+    margin-top: 90px;
+}
+
+#brand {
+    font-weight: 400;
+    font-size: 2.4rem;
+    font-family: "Ubuntu";
+}
+
 .btn:hover {
     background-color: rgb(177, 42, 42);
 }
@@ -15,6 +26,11 @@ h1 {
     font-family: 'Montserrat-black', sans-serif;
     font-size: 3rem;
     line-height: 1.5;
+    margin-top: 12%;
+}
+
+li {
+    margin: 0 15px;
 }
 
 .navbar-brand {
@@ -28,4 +44,13 @@ h1 {
 
 .play {
     padding: 4px 15px 4px 0;
+}
+
+.title {
+    color: white;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    font-family: "Monserat-light";
 }
