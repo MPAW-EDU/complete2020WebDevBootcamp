@@ -109,23 +109,6 @@ li {
     color: #afafaf
 }
 
-.card {
-    max-width: 80%;
-    min-width: 300px;
-    padding: 0;
-    margin: 10px auto;
-}
-
-.card p {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.card-body {
-    line-height: 0.9;
-
-}
-
 .card, .card-header {
     /* width: 100%; */
     text-align: center;
@@ -150,4 +133,10 @@ li {
 
 .no-border {
     border: none;
+}
+
+.price-intro {
+    margin: 1% auto;
+    text-align: center;
+    width: 70%;
 }
