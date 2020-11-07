@@ -31,15 +31,23 @@ h2 {
 #testimonials {
     background-color: #ff4c68;
     color: white;
-    padding: 7% 15%;
+    padding: 7% 5%;
     text-align: center;
 }
 
-#testimonials img {
+.testimonial-img {
     border-radius: 90px;
     margin: 20px;
     width: 10%;
     
+}
+
+#testimonials h2 {
+    padding-bottom: 60px;
+}
+
+.carousel-inner {
+    padding: 0 10%;
 }
 
 .btn:hover {
@@ -99,4 +107,47 @@ li {
 }
 .features p {
     color: #afafaf
+}
+
+.card {
+    max-width: 80%;
+    min-width: 300px;
+    padding: 0;
+    margin: 10px auto;
+}
+
+.card p {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card-body {
+    line-height: 0.9;
+
+}
+
+.card, .card-header {
+    /* width: 100%; */
+    text-align: center;
+}
+
+.free {
+    border: 1px solid #0275d8;
+    color: #0275d8;
+}
+
+#pricing {
+    margin: 0 auto;
+    padding: 1% 8%;
+    width: 100%;
+}
+
+.btn {
+
+    width: 80%;
+    margin: 15px auto 0 auto;
+}
+
+.no-border {
+    border: none;
 }
