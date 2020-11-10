@@ -21,6 +21,32 @@ li {
     font-size: 2.4rem;
     font-family: "Ubuntu";
 }
+#cta {
+    padding: 50px 100px;
+    width: 100%;
+    background-color: #ff4c68;
+    min-height: 200px;
+
+}
+#cta button:nth-of-type(1) {
+    background-color: #fff;
+}
+#cta button:hover {
+    background-color: rgb(177, 42, 42);
+
+}
+#footer, #cta {
+    margin: 0 auto 2%;
+    text-align: center;
+}
+#footer {
+    margin-top: 40px;
+}
+
+#footer img {
+    width: 25px;
+    margin: 10px 10px 20px 10px;
+}
 #mockup {
     transform: rotate(25deg);
     margin-top: 75px;
@@ -91,6 +117,9 @@ li {
 .features p {
     color: #afafaf
 }
+
+
+
 .free {
     border: 1px solid #0275d8;
     color: #0275d8;
