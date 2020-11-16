@@ -56,6 +56,11 @@ $(document).ready(() => {
 $("a").attr("href", "https://www.bing.com");
 $("a").text("Bing");
 
+// Checking for key/typed input
+$("input").keypress((e) => {
+    $("h1").text(e.key);
+})
+
 
 
 
