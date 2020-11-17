@@ -7,10 +7,10 @@ $(document).ready(() => {
 
     // Allows you to change the inner text
     $("h1").text("Goodbye")
-    $("button").text("Don't Click Me")
+    // $("button").text("Don't Click Me")
 
     // Allows you to add html, similar to innerHTML
-    $("button").html("<em>Hey</em>")
+    // $("button").html("<em>Hey</em>")
 
     // Adding a listener
     // $("button").on("click", () => {
@@ -28,10 +28,12 @@ $(document).ready(() => {
         console.log($("body").attr("class"))
         if($("body").hasClass("night-mode")){
             $("body").removeClass("night-mode");
+            $("body").animate({opacity: 1});
             $("#night-mode").text("Dark-Mode");
 
         } else {
             $("body").addClass("night-mode");
+            $("body").animate({opacity: 0.7});
             $("#night-mode").text("Light-Mode");
             console.log("Night-mode clicked!");
         }
@@ -62,5 +64,36 @@ $("input").keypress((e) => {
 })
 
 
+// JQuery Animations
+$("button#hideTitle").text("Hide-Title");
+$("#hideTitle").on("click", (e) => {
+    if($("h1").hasClass("hide-title")){
+        $("h1").removeClass("hide-title");
+    } else {
+        $("h1").addClass("hide-title");
+    }
+})
+
+$("#toggleHide").on("click", () => {
+    $("h1").toggle();
+})
+
+
+// Fade in and out
+$("#fade-toggle").on("click", () => {
+    $("h1").fadeToggle();
+})
+
+
+// Slide up and down
+$("#slide").on("click", () => {
+    $("h1").slideToggle();
+})
+
+
+// Custom Animations
+$("#animate").on("click", () => {
+    $("h1").animate({opacity: 0.5});
+})
 
 
