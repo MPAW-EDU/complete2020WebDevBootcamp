@@ -17,3 +17,7 @@
 .make-red {
     color:red;
 }
+
+.hide-title {
+    visibility: hidden;
+}
