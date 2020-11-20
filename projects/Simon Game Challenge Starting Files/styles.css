@@ -51,3 +51,18 @@ body {
   box-shadow: 0 0 20px white;
   background-color: grey;
 }
+
+footer {
+  color: white;
+  font-size: 1.2rem;
+}
+
+footer a {
+  text-decoration: none;
+  color: steelblue;
+}
+
+footer a:hover {
+  background-color: blueviolet;
+  color: orangered;
+}
