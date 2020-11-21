@@ -1,5 +1,4 @@
 
-const { RSA_NO_PADDING } = require('constants');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -27,13 +26,12 @@ app.post("/", (req,res) => {
 
     console.log(req.body);
 
-    let num1 = req.body.num1;
-    let num2 = req.body.num2
+    let num1 = Number(req.body.num1);
+    let num2 = Number(req.body.num2);
     let product = num1 * num2;
 
     res.send(`The product of ${num1} and ${num2} is ${product}`)
 })
-
 
 
 app.listen(PORT, () => {
