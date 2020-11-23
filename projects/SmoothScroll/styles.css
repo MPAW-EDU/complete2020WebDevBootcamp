@@ -1,0 +1,42 @@
+
+.test-container {
+    width: 100%;
+    min-height: 1000px;
+    border: 1px solid black;
+    padding: 25% 10%;
+}
+
+.carousel-inner {
+    margin: 0 auto;
+    padding: 0 8%;
+    min-height: 550px;
+}
+
+.carousel-inner h3 {
+    text-align: center;
+}
+
+.carousel-item {
+    min-height: 500px;
+    padding: 5px;
+}
+
+#section1 {
+    background-color: orange;
+}
+
+#section2 {
+    background-color: steelblue;
+}
+
+#section3 {
+    background-color: red;
+}
+
+#section4 {
+    background-color: burlywood;
+}
+
+#section5 {
+    background-color: chartreuse;
+}
