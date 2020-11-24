@@ -16,8 +16,8 @@ jQuery($ => {
           $('html, body').animate({ scrollTop: $(targetElement).offset().top }, speed);
         }
 
-        $(`#${targetId} .fade-2000`).fadeOut(0).fadeIn(2000);
-        $(`#${targetId} .fade-2500`).fadeOut(0).fadeIn(2500);
+        $(`#${targetId} .fade-2000`).fadeOut(0).fadeIn(2100);
+        $(`#${targetId} .fade-2500`).fadeOut(0).fadeIn(2600);
 
       });
   });

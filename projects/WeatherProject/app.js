@@ -20,12 +20,18 @@ app.get("/", (req,res) => {
 
             const temp = weatherData.main.temp;
             const weatherDesc = weatherData.weather[0].description;
-            console.log(weatherDesc)
+            const icon = weatherData.weather[0].icon;
+            const imgURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+            
+            res.write(`<h1>The temperature in London is ${temp} degrees Farenheit.</h1>`);
+            res.write(`<h3>Over London currently has ${weatherDesc}</h3>`);
+            res.write(`<img src="${imgURL}">`)
+
+            res.send();
 
         })
     })
 
-    res.send("Server is working!")
 })
 
 
