@@ -37,7 +37,7 @@ app.post("/signup", (req,res) => {
 
     const jsonData = JSON.stringify(data);
 
-    // Insert Here
+    // Insert API and Key Here
 
 
     const request = https.request(url, options, (response) => {
@@ -71,8 +71,25 @@ app.post("/failure", (req,res) => {
     res.redirect("/");
 })
 
-app.listen(PORT, () => {
+/**
+ *  When deploying to Heroku, set the port to [ process.env.PORT ] 
+ *  to allow Heroku to manage it.
+ */
+app.listen(process.env.PORT || 5500, () => {
     console.log(`Server started on port ${PORT}.`)
 })
+ 
+// app.listen(PORT, () => {
+//     console.log(`Server started on port ${PORT}.`)
+// })
+
+/**
+ * create a new project repo on github using the command [ git init ]
+ * use the command [ heroku create ] from within the project file.
+ * [ git push heroku master ] , use this to push additional changes
+ */
 
 
+ /**
+  * Add the procfile and add the way to start the app [ web: node app.js ] 
+  */
