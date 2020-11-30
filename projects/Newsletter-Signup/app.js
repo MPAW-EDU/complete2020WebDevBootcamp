@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const https = require('https');
+const { fail } = require('assert');
 const PORT = 5500;
 
 const app = express();
@@ -38,7 +39,21 @@ app.post("/signup", (req,res) => {
 
     // Insert Here
 
+
     const request = https.request(url, options, (response) => {
+
+        res.sendFile(`${__dirname}/${response.statusCode===200?"success":"failure"}.html`);
+
+        //  res.send(
+        //     response.statusCode===200?"Signup Successful!":"There was a problem signing up, please try again."
+        // )
+
+        // if (response.statusCode === 200) {
+        //     res.send("Successfully Subscribed!");
+        // } else {
+        //     res.send("There was a problem signing up.")
+        // }
+
         response.on("data", (data) => {
             console.log(JSON.parse(data));
         })
@@ -50,6 +65,10 @@ app.post("/signup", (req,res) => {
     console.log(req.body);
     // res.send(`Thank you for signing-up ${firstName}, your first newsletter will arrive at ${email} shortly.`);
 
+})
+
+app.post("/failure", (req,res) => {
+    res.redirect("/");
 })
 
 app.listen(PORT, () => {
