@@ -1,0 +1,14 @@
+<%- include("header") -%>
+
+
+    <% postList.forEach(post => { %>
+        <div class="postCard">
+            <h2><%= post.title %></h2>
+            <p><%= post.content %></p>
+            <p><%= post.author %></p>
+            <p><%= post.date %></p>
+        </div>
+    <% }) %>
+
+
+<%- include("footer") -%>
