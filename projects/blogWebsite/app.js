@@ -5,6 +5,8 @@ const PORT = 3000;
 
 const app = express();
 
+let updateID = null;
+
 let posts = [
     {
         'title': 'Day 1',
@@ -22,6 +24,20 @@ let posts = [
     }
 ]
 
+const getDate = () => {
+    const today = new Date();
+
+    const options = {
+        month: "numeric",
+        day: "numeric",
+        year: "numeric"
+    }
+
+    const day = today.toLocaleString('en-US', options);
+
+    return day;
+}
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -30,9 +46,29 @@ app.set('view engine', 'ejs');
 
 app.get("/", (req,res) => {
     res.render("main", {postList: posts});
-    // console.log(posts)
+    console.log(getDate())
 })
 
+app.get("/create", (req,res) => {
+    res.render("create");
+})
+
+app.post("/create", (req,res) => {
+    const newPost = {
+        'title': `${req.body.title}`,
+        'id': `${posts.length + 1}`,
+        'author': "MPAW",
+        'date': `${getDate()}`,
+        'content': `${req.body.content}`
+    }
+    posts.push(newPost)
+
+    res.redirect("/")
+})
+
+app.get("/update", (req,res) => {
+    console.log("Success!")
+})
 
 
 app.listen(PORT, () => {
