@@ -1,0 +1,13 @@
+<%- include("header") -%>
+
+
+    <div class="postCardFull">
+        <form action="/create" method="POST">
+            <input type="text" name="title" placeholder="Enter Title" autocomplete="off" autofocus /> <br>
+            <textarea cols="17" rows="9" type="text" name="content" autocomplete="off">Enter Content</textarea>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+
+
+<%- include("footer") -%>

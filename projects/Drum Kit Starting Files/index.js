@@ -5,6 +5,9 @@ const drums = document.querySelectorAll(".drum");
 //     tom1.play();
 // }
 
+// Front-load audio files into class constructs
+
+
 
 drums.forEach(e => e.addEventListener("click", () => {
 
