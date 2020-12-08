@@ -1,3 +1,5 @@
+//jslint esversion:6
+
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
@@ -5,10 +7,10 @@ const assert = require('assert');
 const url = 'mongodb://localhost:27017';
 
 // Database Name
-const dbName = 'myproject';
+const dbName = 'fruitsDB';
 
 // Create a new MongoClient
-const client = new MongoClient(url);
+const client = new MongoClient(url, { useUnifiedTopology: true });
 
 // Use connect method to connet to the Server
 client.connect(function(err){
