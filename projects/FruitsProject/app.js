@@ -23,7 +23,35 @@ const fruit = new Fruit ({
     review: "Pretty solid as a fruit."
 });
 
-fruit.save().then(console.log("Fruit Saved"))
+const kiwi = new Fruit ({
+    name: "Kiwi",
+    score: 10,
+    review: "The bestest fruit!"
+})
+
+const orange = new Fruit ({
+    name: "Orange",
+    score: 4,
+    review: "Too sour for me"
+})
+
+const banana = new Fruit ({
+    name: "Banana",
+    score: 3,
+    review: "A weird texture"
+})
+/**
+ *  Add mutliple entries and catch errors
+ */ 
+// Fruit.insertMany([kiwi, orange, banana], function(err){
+//     if (err) {
+//         console.log(err)
+//     } else {
+//         console.log("Successfully saved all the fruits to fruitsDB")
+//     }
+// })
+// Add a single entry
+// fruit.save().then(console.log("Fruit Saved"))
 
 const personSchema = new mongoose.Schema ({
     name: String,
@@ -37,4 +65,21 @@ const person = new Person ({
     age: 37
 })
 
-person.save().then(console.log("Person Saved"))
+// person.save().then(console.log("Person Saved"))
+
+/**
+ * Tap into the fruits DB and pull the data
+ */
+
+ Fruit.find(function(err, fruits) {
+     if(err){
+         console.log(err)
+     } else {
+
+        mongoose.connection.close();
+
+         fruits.forEach(fruit => {
+             console.log(fruit.name)
+         });
+     }
+ })
