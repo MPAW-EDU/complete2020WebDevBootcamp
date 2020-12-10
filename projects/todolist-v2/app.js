@@ -25,26 +25,31 @@ mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true
 const itemsSchema = new mongoose.Schema ({
     name: {
         type: String,
-        required: [true, "Missing item name!"]
         }   
 })
 
 const Item = mongoose.model("Item", itemsSchema);
 
 const item1 = new Item ({
-    name: "Go Shopping"
+    name: "Welcome to your todolist!"
 })
 
 const item2 = new Item ({
-    name: "Go to work"
+    name: "Hit the (+) button to add a new item."
 })
 
 const item3 = new Item ({
-    name: "Travel"
+    name: "<-- Click this to delete an item."
 })
 
 const newItems = [item1, item2, item3]
 
+const listScema = {
+    name: String,
+    items: [itemsSchema]
+};
+
+const List = mongoose.model("List", listScema);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
@@ -78,23 +83,48 @@ app.get("/", (req,res) => {
 app.post("/", (req,res) => {
 
 
-    let item = req.body.newItem;
+    const itemName = req.body.newItem;
 
-    if (req.body.list === "work") {
-        item.length!==0?workItems.push(item):null;
-        res.redirect("/work");
-    } else {
-        item.length!==0?items.push(item):null;
-        res.redirect("/");
+    if(itemName.length>0){
+        const item = new Item ({
+            name: itemName
+        })
+        item.save();
     }
+    res.redirect("/");
+
+    // if (req.body.list === "work") {
+    //     item.length!==0?workItems.push(item):null;
+    //     res.redirect("/work");
+    // } else {
+    //     item.length!==0?items.push(item):null;
+    //     res.redirect("/");
+    // }
     // console.log(item.length)
 
 });
 
+app.post("/delete", (req, res) => {
 
-app.get("/work", (req, res) => {
+    const checkedItemId = req.body.checkbox;
 
-    res.render("list", {listTitle: "work", newListItems: workItems, });
+    Item.findByIdAndRemove(checkedItemId, (err) => {
+        if(err) console.log(err);
+        console.log("Successful Deletion");
+    })
+
+    res.redirect("/")
+
+})
+
+/**
+ *  Express Dynamic Route
+ */
+app.get("/:customListName", (req, res) => {
+
+    const customListName = req.params.customListName;
+
+    console.log(customListName);
 
 });
 
