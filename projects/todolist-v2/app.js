@@ -42,7 +42,7 @@ const item3 = new Item ({
     name: "<-- Click this to delete an item."
 })
 
-const newItems = [item1, item2, item3]
+const defaultItems = [item1, item2, item3]
 
 const listScema = {
     name: String,
@@ -60,7 +60,7 @@ app.get("/", (req,res) => {
     Item.find({}, function(err, foundItems){
 
         if(foundItems.length===0){
-            Item.insertMany(newItems, function(err) {
+            Item.insertMany(defaultItems, function(err) {
                 if(err){
                     console.log(err);
                 } else {
@@ -82,16 +82,28 @@ app.get("/", (req,res) => {
 
 app.post("/", (req,res) => {
 
-
     const itemName = req.body.newItem;
+    const listName = req.body.list;
 
     if(itemName.length>0){
+
         const item = new Item ({
             name: itemName
-        })
-        item.save();
+        });
+
+        if (listName === "Today") {
+            item.save();
+            res.redirect("/");
+
+        } else {
+            List.findOne({name: listName}, (err, foundList) => {
+            foundList.items.push(item);  
+            foundList.save();
+            res.redirect(`/${listName}`);
+            });
+        };
+
     }
-    res.redirect("/");
 
     // if (req.body.list === "work") {
     //     item.length!==0?workItems.push(item):null;
@@ -124,7 +136,26 @@ app.get("/:customListName", (req, res) => {
 
     const customListName = req.params.customListName;
 
-    console.log(customListName);
+    List.findOne({name: customListName}, (err, foundList) => {
+        if(!err) {
+            if(!foundList) {
+                // Create a new list
+                const list = new List({
+                    name: customListName,
+                    items: defaultItems
+                })
+            
+                list.save()
+                res.redirect(`/${customListName}`)
+            } else {
+                // Show an existing list
+                res.render("list", {listTitle: foundList.name, newListItems: foundList.items})
+            }
+        } else {
+            // Log an error
+            console.log(err);
+        }
+    })
 
 });
 
