@@ -17,7 +17,7 @@ const PORT = 5500;
 /**
  *  Data Persistance using mongo and mongoose
  */
-mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true  })
+mongoose.connect("mongodb+srv://< username & password >@cluster0.w0y0c.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true  })
 
 
 /**
