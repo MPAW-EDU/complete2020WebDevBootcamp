@@ -10,7 +10,17 @@ const _ = require("lodash");
 const day = date();
 const app = express();
 
-const PORT = 5500;
+const PORT = process.env.PORT;
+if (PORT == null || PORT == ""){
+    PORT = 3000;
+}
+
+// Add this into your package.json just below license, to make it ready to launch
+/*
+  "engines": {
+    "node": "14.13.1"
+  },
+*/
 
 // let items = ['买食物','煮食物','吃食物'];
 // let workItems = [];
@@ -188,5 +198,5 @@ app.get("/about", (req, res) => {
 
 // Listener
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}.`)
+    console.log(`Server started successfully.`)
 })
