@@ -1,12 +1,13 @@
 
+// Required Imports
 const express = require('express');
 const bodyParser = require('body-parser');
 const date = require(`${__dirname}/date.js`);
 const mongoose = require('mongoose');
 const _ = require("lodash");
 
+// Function / Method Assignments
 const day = date();
-
 const app = express();
 
 const PORT = 5500;
@@ -185,6 +186,7 @@ app.get("/about", (req, res) => {
 })
 
 
+// Listener
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}.`)
 })
