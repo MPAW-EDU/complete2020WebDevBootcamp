@@ -67,6 +67,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
+/**
+ *  Get home route
+ */
 app.get("/", (req,res) => {   
 
     Item.find({}, function(err, foundItems){
@@ -92,6 +95,9 @@ app.get("/", (req,res) => {
 
 })
 
+/**
+ *  Post new item route
+ */
 app.post("/", (req,res) => {
 
     const itemName = req.body.newItem;
@@ -128,6 +134,9 @@ app.post("/", (req,res) => {
 
 });
 
+/**
+ *  Deletion route
+ */
 app.post("/delete", (req, res) => {
 
     const checkedItemId = req.body.checkbox;
