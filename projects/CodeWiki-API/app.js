@@ -56,7 +56,7 @@ Article.find({}, (err, foundArticles) => {
 })
 
 /**
- * @route : "/article"
+ * @route : "/articles"
  * @DB : wikiDB
  * @Collection : Article
  * @function .route()
@@ -137,6 +137,48 @@ app.route("/articles")
             }
         })
     
+    });
+
+    ////////////// Request Targeting Specific Article //////////////
+
+
+    /**
+ * @route : "/articles/:articleTitle"
+ * @DB : wikiDB
+ * @Collection : Article
+ * @function .route()
+ * Description: This handles the routing of different types of
+ *              or requests that are sent to the same API route.
+ * Note: The different types methods of handling each type of request
+ *       are chained together, and the correct one is selected via
+ *       the routing.
+ */
+app.route("/articles/:articleTitle")
+
+    /**
+    * @get : @route
+    * @function .findOne()
+    * Description: This will find a single item within the given
+    *              targeted collection and return it.
+    * Note: This function takes two parameters, the first can be used
+    *       to target a specific item based on an identifier,
+    *       and the second will return either an error or found item,
+    *       both of the latter must be represented by variables key pairs
+    *       in which the return data will/could be parsed or
+    *       the function will fail.
+    */
+    .get((req,res) => {
+        const title = req.params.articleTitle;
+
+        Article.findOne({title: title}, (err, foundArticle) => {
+            if(err) res.send(`There was an error: ${err}`)
+            if(foundArticle){
+                res.send(foundArticle);
+            } else {
+                res.send(`No articles matching that title were found.`);
+            }
+        })
+
     });
 
 // Listen for connection
