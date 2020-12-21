@@ -179,7 +179,38 @@ app.route("/articles/:articleTitle")
             }
         })
 
-    });
+    })
+
+
+    /**
+    * @get : @route
+    * @function .update()
+    * Description: This will find a single item in the DB and allow you
+    *              to specify the parameters to update with newly supplied
+    *              values..
+    * Note: This takes three sets of parameters and one function,
+    *       the first is used to find the item. The second will 
+    *       be the matching keypairs to update the DB item fields
+    *       with new data. The third will tell the method to overwrite
+    *       the specified fields with the new data. Lastly, a function
+    *       is required to return possible error code or to direct the
+    *       user to a new location upon success.
+    */
+    .put((req,res) => {
+
+        Article.update(
+            {title: req.params.articleTitle},
+            {title: req.body.title, content: req.body.content},
+            {overwrite: true},
+            (err) => {
+                if(!err){
+                    res.send("Update Success!")
+                } else {
+                    res.send(`There was an error: ${err}`)
+                }
+            }
+        )
+    })
 
 // Listen for connection
 app.listen(PORT, () => {
