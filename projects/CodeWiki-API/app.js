@@ -183,11 +183,11 @@ app.route("/articles/:articleTitle")
 
 
     /**
-    * @get : @route
+    * @put : @route
     * @function .update()
     * Description: This will find a single item in the DB and allow you
     *              to specify the parameters to update with newly supplied
-    *              values..
+    *              values.
     * Note: This takes three sets of parameters and one function,
     *       the first is used to find the item. The second will 
     *       be the matching keypairs to update the DB item fields
@@ -211,6 +211,30 @@ app.route("/articles/:articleTitle")
             }
         )
     })
+
+    /**
+    * @patch : @route
+    * @function .update()
+    * Description: This will allow you to update/patch an individual field 
+    *              of a DB item.
+    * Note: It will have almost an identic setup as a typical update DB method,
+    *       with the key exception being that instead of having { overwrite:true }
+    *       you will instead have { $set: { yourUpdatesHere } }.
+    */
+    .patch((req,res) => {
+
+        Article.update(
+            {title: req.params.articleTitle},
+            {$set: req.body},
+            (err) => {
+                if(!err){
+                    res.send("Succefully updated article.")
+                } else {
+                    res.send(`Update error: ${err}`)
+                }
+            }
+        );
+    });
 
 // Listen for connection
 app.listen(PORT, () => {
