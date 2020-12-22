@@ -234,6 +234,24 @@ app.route("/articles/:articleTitle")
                 }
             }
         );
+    })
+
+    /**
+    * @delete : @route
+    * @function .deleteOne()
+    * Description: This will allow find an item based on a unique identifier
+    *              and delete it from the DB.
+    * Note: Deletion cannot be undone, make sure you have the correct item.
+    */
+
+    .delete((req,res) => {
+        Article.deleteOne({title: req.params.articleTitle}, (err) => {
+            if (!err){
+                res.send("Deletion Success!")
+            } else {
+                res.send(`Deletion Error: ${err}`)
+            }
+        })
     });
 
 // Listen for connection
