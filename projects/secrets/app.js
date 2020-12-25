@@ -3,7 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
-const { response } = require('express');
+const mongoose = require('mongoose');
 
 let PORT = process.env.PORT;
 if(PORT == null || PORT == ""){
@@ -17,6 +17,17 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+mongoose.connect("mongodb://localhost:27017/userDB", { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+const userSchema = {
+    email: String,
+    password: String
+}
+
+const user = new mongoose.model("User", userSchema);
+
+
 app.get("/", (req,res) => {
     res.status("200").render(("home"))
 })
@@ -27,6 +38,33 @@ app.get("/login", (req,res) => {
 
 app.get("/register", (req,res) => {
     res.status("200").render(("register"))
+})
+
+app.post("/register", (req,res) => {
+    const newUser = new user({
+        email: req.body.username,
+        password: req.body.password
+    })
+
+
+    /**
+     *  Fix This Tomorrow
+     */
+
+    // console.log(user.findOne({email: req.body.username}));
+
+    // if(user.findOne({email: req.body.username})){
+    //     res.status(401).send("A user with that email already exists.")
+    // } else {
+    //     newUser.save((err) => {
+    //         if(err) {
+    //             console.log(err);
+    //         } else {
+    //             res.status("201").render("secrets");
+    //         }
+    //     });
+    // }
+
 })
 
 
