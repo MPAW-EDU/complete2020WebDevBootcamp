@@ -46,26 +46,15 @@ app.post("/register", (req,res) => {
         password: req.body.password
     })
 
+    newUser.save((err) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.status("201").render("secrets");
+        };
+    });
 
-    /**
-     *  Fix This Tomorrow
-     */
-
-    // console.log(user.findOne({email: req.body.username}));
-
-    // if(user.findOne({email: req.body.username})){
-    //     res.status(401).send("A user with that email already exists.")
-    // } else {
-    //     newUser.save((err) => {
-    //         if(err) {
-    //             console.log(err);
-    //         } else {
-    //             res.status("201").render("secrets");
-    //         }
-    //     });
-    // }
-
-})
+});
 
 
 app.listen(PORT, () => {
