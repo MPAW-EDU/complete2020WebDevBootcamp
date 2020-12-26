@@ -1,5 +1,9 @@
 //jshint esversion:6
 
+/**
+ *  Package: Mongoose-Encryption
+ */
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -46,11 +50,46 @@ app.post("/register", (req,res) => {
         password: req.body.password
     })
 
-    newUser.save((err) => {
+    const username = req.body.username;
+
+    // newUser.save((err) => {
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+    //         res.status("201").render("secrets");
+    //     };
+    // });
+
+    if(user.findOne({email: username})){
+        res.status("401").send("A user with that email already exists.");
+    } else {
+        newUser.save((err) => {
+            if(err){
+                console.log(`There was a registration error: ${err}`);
+            } else {
+                res.status("201").render("secrets");
+            };
+        });
+    };
+
+});
+
+app.post("/login", (req,res) => {
+
+    const username = req.body.username;
+    const password = req.body.password;
+
+    user.findOne({email: username}, (err, foundUser) => {
         if(err){
             console.log(err);
         } else {
-            res.status("201").render("secrets");
+            if(foundUser) {
+                if(foundUser.password === password) {
+                    res.status("200").render("secrets");
+                } else {
+                    res.status("401").send("Incorrect Username or Password.")
+                }
+            };
         };
     });
 
