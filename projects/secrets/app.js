@@ -8,6 +8,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+
+/**
+ *  Medium to high encryption,
+ *  a best practice for use.
+ */
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+/**
+ *  A fairly weak encryption that
+ *  wont often survive a hash/rainbow
+ *  table attack.
+ */
 const md5 = require('md5');
 
 /**
@@ -63,20 +76,28 @@ app.get("/register", (req,res) => {
 })
 
 app.post("/register", (req,res) => {
-    const newUser = new user({
-        email: req.body.username,
-        password: md5(req.body.password)
-    })
+
+    bcrypt.hash( req.body.password, saltRounds, (err, hash) => {
+
+        const newUser = new user({
+            email: req.body.username,
+            password: hash
+        })
+
+        newUser.save((err) => {
+            if(err){
+                console.log(err);
+            } else {
+                res.status("201").render("secrets");
+            };
+        });
+    });
+
+
 
     const username = req.body.username;
 
-    newUser.save((err) => {
-        if(err){
-            console.log(err);
-        } else {
-            res.status("201").render("secrets");
-        };
-    });
+
 
     // if(user.find({email: username})) {
     //     res.status("401").send("A user with that email already exists.");
@@ -95,18 +116,20 @@ app.post("/register", (req,res) => {
 app.post("/login", (req,res) => {
 
     const username = req.body.username;
-    const password = md5(req.body.password);
+    const password = req.body.password;
 
     user.findOne({email: username}, (err, foundUser) => {
         if(err){
             console.log(err);
         } else {
             if(foundUser) {
-                if(foundUser.password === password) {
-                    res.status("200").render("secrets");
-                } else {
-                    res.status("401").send("Incorrect Username or Password.")
-                }
+                bcrypt.compare(password, foundUser.password, (err, result) => {
+                    if(result===true){
+                        res.status("200").render("secrets");
+                    } else {
+                        res.status("401").send("Incorrect Username or Password.")
+                    }
+                })
             } else {
                 res.status("401").send("No such user exists.");
             };
