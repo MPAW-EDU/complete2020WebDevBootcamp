@@ -30,7 +30,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
  *  wont often survive a hash/rainbow
  *  table attack.
  */
-const md5 = require('md5');
+// const md5 = require('md5');
 
 /**
  *  Userd to encypt data,
@@ -93,15 +93,15 @@ userSchema.plugin(passportLocalMongoose);
 
 
 
-const user = new mongoose.model("User", userSchema);
+const User = new mongoose.model("User", userSchema);
 
 /**
  *  Step 5 - Session & Auth
  *  Configure passportLocalMongoose
  */
-passport.use(user.createStrategy());
-passport.serializeUser(user.serializeUser());
-passport.deserializeUser(user.deserializeUser());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/", (req,res) => {
@@ -123,7 +123,21 @@ app.get("/register", (req,res) => {
  *  to access.
  */
 app.get("/secrets", (req,res) => {
-    
+    if(req.isAuthenticated()){
+        res.status("200").render('secrets');
+    } else {
+        res.status("401").redirect('/login');
+    }
+})
+
+
+/**
+ *  Step 10 - Session & Auth
+ *  Create a logout route
+ */
+app.get("/logout", (req,res) => {
+    req.logout();
+    res.status("200").redirect('/');
 })
 
 
@@ -137,10 +151,10 @@ app.post("/register", (req,res) => {
     user.register({username: req.body.username}, req.body.password, (err, user) => {
         if (err) {
             console.log(err);
-            res.redirect('/register')
+            res.status("418").redirect('/register')
         } else {
             passport.authenticate("local")(req,res, () => {
-                res.redirect('secrets');
+                res.status("201").redirect('/secrets');
             })
         }
     })
@@ -187,6 +201,25 @@ app.post("/register", (req,res) => {
 
 app.post("/login", (req,res) => {
 
+    /**
+     *  Step 9 - Session & Auth
+     *  Create new user,
+     *  Use .login() to authenticate the user
+     */
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    req.login(user, (err) => {
+        if(err){
+            console.log(err);
+        } else {
+            passport.authenticate("local")(req,res, () => {
+                res.status("200").redirect('/secrets');
+            })
+        }
+    })
 
     /**
      *  Removed to implement cookies and session
