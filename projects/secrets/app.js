@@ -148,7 +148,7 @@ app.post("/register", (req,res) => {
      *  Setup the registration using passport framework  
      */    
 
-    user.register({username: req.body.username}, req.body.password, (err, user) => {
+    User.register({username: req.body.username}, req.body.password, (err, user) => {
         if (err) {
             console.log(err);
             res.status("418").redirect('/register')
