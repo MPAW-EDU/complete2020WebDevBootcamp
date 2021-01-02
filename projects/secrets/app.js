@@ -8,6 +8,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+// Required for OAuth2.0
+const findOrCreate = require('mongoose-findorcreate');
 
 /**
  *  Step 1 & 2 - Google OAuth using Passport
@@ -90,7 +92,8 @@ const userSchema = new Schema ({
  *  Setup Passport-Local Mongoose
  */
 userSchema.plugin(passportLocalMongoose);
-
+// Required for OAuth2.0
+userSchema.plugin(findOrCreate);
 
 
 /**
@@ -114,6 +117,8 @@ passport.deserializeUser(User.deserializeUser());
 /**
  *  Step 3 - Google OAuth using Passport
  *  Implement the base structure
+ *  Install Package: mongoose-findorcreate, then
+ *  require it at the top
  */
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
@@ -133,13 +138,24 @@ app.get("/", (req,res) => {
     res.status("200").render(("home"))
 })
 
+/**
+ *  OAuth get request, followed by post by google if success
+ */
+app.get("/auth/google", (req,res) => {
+    passport.authenticate("google", { scope: ["profile", "email"] })
+});
+
+app.post("/auth/google", (req,res) => {
+    
+})
+
 app.get("/login", (req,res) => {
     res.status("200").render(("login"))
-})
+});
 
 app.get("/register", (req,res) => {
     res.status("200").render(("register"))
-})
+});
 
 /**
  *  Step 8 - Session & Auth
@@ -153,7 +169,7 @@ app.get("/secrets", (req,res) => {
     } else {
         res.status("401").redirect('/login');
     }
-})
+});
 
 
 /**
@@ -163,7 +179,7 @@ app.get("/secrets", (req,res) => {
 app.get("/logout", (req,res) => {
     req.logout();
     res.status("200").redirect('/');
-})
+});
 
 
 app.post("/register", (req,res) => {
@@ -275,4 +291,4 @@ app.post("/login", (req,res) => {
 
 app.listen(PORT, () => {
     console.log("Server 'Secrets' Online.");
-})
+});
