@@ -10,6 +10,14 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 
 /**
+ *  Step 1 & 2 - Google OAuth using Passport
+ *  install: passport-google-oauth20
+ *  then require it
+ */
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+
+/**
  *  Step 1 - Session & Auth
  *  Configuration for Sessions, cookies, and Auth
  */
@@ -102,6 +110,23 @@ const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+/**
+ *  Step 3 - Google OAuth using Passport
+ *  Implement the base structure
+ */
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/secrets",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+},
+    function(accessToken, refreshToken, profile, cb){
+        User.findOrCreate({ googleId: profile.id }, (err,user)=>{
+            return cb(err,user);
+        });
+    }
+));
 
 
 app.get("/", (req,res) => {
