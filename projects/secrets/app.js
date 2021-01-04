@@ -16,6 +16,8 @@ const mongoose = require('mongoose');
  */
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 // Required for OAuth2.0
 const findOrCreate = require('mongoose-findorcreate')
 
@@ -146,6 +148,25 @@ passport.use(new GoogleStrategy({
     }
 ));
 
+/**
+ *  Facebook Login Strategy
+ */
+passport.use(
+    new FacebookStrategy(
+        {
+            clientID: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+            callbackURL: "http://localhost:3000/auth/facebook/secrets",
+            // profileFields: ["email", "name"]
+        },
+        function(accessToken, refreshToken, profile, done){
+            User.findOrCreate({ facebookId: profile.id }, (err, user) => {
+                return done(err, user);
+            });
+        }
+    )
+);
+
 
 app.get("/", (req,res) => {
     res.status("200").render(("home"))
@@ -164,6 +185,16 @@ app.get("/auth/google",
  */
 app.get("/auth/google/secrets",
     passport.authenticate('google', { failureRedirect: "/login" }),
+    (req,res) => {
+        res.redirect("/secrets");
+    }
+);
+
+app.get("/auth/facebook", 
+    passport.authenticate('facebook', { scope: ["profile"] }));
+
+app.get('/auth/facebook/secrets',
+    passport.authenticate('facebook', {failureRedirect: '/login'}),
     (req,res) => {
         res.redirect("/secrets");
     }
