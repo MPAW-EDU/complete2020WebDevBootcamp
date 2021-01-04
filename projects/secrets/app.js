@@ -8,8 +8,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-// Required for OAuth2.0
-const findOrCreate = require('mongoose-findorcreate');
 
 /**
  *  Step 1 & 2 - Google OAuth using Passport
@@ -17,6 +15,9 @@ const findOrCreate = require('mongoose-findorcreate');
  *  then require it
  */
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+// Required for OAuth2.0
+const findOrCreate = require('mongoose-findorcreate')
 
 
 /**
@@ -84,7 +85,9 @@ mongoose.set("useCreateIndex", true);
 
 const userSchema = new Schema ({
     email: String,
-    password: String
+    password: String,
+    googleId: String,
+    secret: String
 });
 
 /**
@@ -111,8 +114,16 @@ const User = new mongoose.model("User", userSchema);
  *  Configure passportLocalMongoose
  */
 passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user);
+    });
+});
 
 /**
  *  Step 3 - Google OAuth using Passport
@@ -127,6 +138,8 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
     function(accessToken, refreshToken, profile, cb){
+        console.log(profile);
+
         User.findOrCreate({ googleId: profile.id }, (err,user)=>{
             return cb(err,user);
         });
@@ -140,14 +153,21 @@ app.get("/", (req,res) => {
 
 /**
  *  OAuth get request, followed by post by google if success
+ *  Note: This does not use a (req,res)
  */
-app.get("/auth/google", (req,res) => {
-    passport.authenticate("google", { scope: ["profile", "email"] })
-});
-
-app.post("/auth/google", (req,res) => {
-    
-})
+app.get("/auth/google",
+    passport.authenticate("google", { scope: ["profile"] })
+);
+/**
+ *  This is the API that google will direct to
+ *  if request successful.
+ */
+app.get("/auth/google/secrets",
+    passport.authenticate('google', { failureRedirect: "/login" }),
+    (req,res) => {
+        res.redirect("/secrets");
+    }
+);
 
 app.get("/login", (req,res) => {
     res.status("200").render(("login"))
