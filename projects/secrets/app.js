@@ -239,7 +239,18 @@ app.get("/submit", (req,res) => {
 app.post("/submit", (req,res) => {
     const submittedSecret = req.body.secret;
 
-    console.log(req.user);
+    User.findById(req.user.id, (err, foundUser) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (foundUser){
+                foundUser.secret = submittedSecret;
+                foundUser.save(() => {
+                    res.redirect('/secrets');
+                })
+            }
+        }
+    })
 
 });
 
