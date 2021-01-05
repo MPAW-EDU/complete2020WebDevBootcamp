@@ -8,7 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-
+const uuidv4 = require('uuid');
 /**
  *  Step 1 & 2 - Google OAuth using Passport
  *  install: passport-google-oauth20
@@ -69,7 +69,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: "Our little secret.",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    // genid: function(req) {
+    //     return uuidv4
+    // }
 }));
 
 /**
@@ -89,6 +92,7 @@ const userSchema = new Schema ({
     email: String,
     password: String,
     googleId: String,
+    facebookId: String,
     secret: String
 });
 
@@ -157,9 +161,10 @@ passport.use(
             clientID: process.env.FACEBOOK_CLIENT_ID,
             clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
             callbackURL: "http://localhost:3000/auth/facebook/secrets",
-            // profileFields: ["email", "name"]
+            profileFields: ['email']
         },
         function(accessToken, refreshToken, profile, done){
+            console.log(profile.id);
             User.findOrCreate({ facebookId: profile.id }, (err, user) => {
                 return done(err, user);
             });
@@ -191,7 +196,7 @@ app.get("/auth/google/secrets",
 );
 
 app.get("/auth/facebook", 
-    passport.authenticate('facebook', { scope: ["profile"] }));
+    passport.authenticate('facebook', { scope: ["email"] }));
 
 app.get('/auth/facebook/secrets',
     passport.authenticate('facebook', {failureRedirect: '/login'}),
@@ -222,6 +227,21 @@ app.get("/secrets", (req,res) => {
     }
 });
 
+
+app.get("/submit", (req,res) => {
+    if ( req.isAuthenticated ) {
+        res.status('200').render('submit');
+    } else {
+        res.status('401').redirect('/login');
+    }
+});
+
+app.post("/submit", (req,res) => {
+    const submittedSecret = req.body.secret;
+
+    console.log(req.user);
+
+});
 
 /**
  *  Step 10 - Session & Auth
