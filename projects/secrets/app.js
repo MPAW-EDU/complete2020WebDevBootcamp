@@ -220,11 +220,17 @@ app.get("/register", (req,res) => {
  *  to access.
  */
 app.get("/secrets", (req,res) => {
-    if(req.isAuthenticated()){
-        res.status("200").render('secrets');
-    } else {
-        res.status("401").redirect('/login');
-    }
+    
+    User.find({"secret": {$ne: null}}, (err, foundUsers) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (foundUsers) {
+                res.render("secrets", {usersWithSecrets: foundUsers});
+            }
+        }
+    });
+
 });
 
 
@@ -247,10 +253,10 @@ app.post("/submit", (req,res) => {
                 foundUser.secret = submittedSecret;
                 foundUser.save(() => {
                     res.redirect('/secrets');
-                })
+                });
             }
         }
-    })
+    });
 
 });
 
