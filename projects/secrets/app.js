@@ -164,6 +164,11 @@ passport.use(new GoogleStrategy({
  *  The required way that we tell what exact way facebook has in mind
  *  for developer to be able to allow their app users to authenticate 
  *  by using a facebook OAuth.
+ * 
+ *  Facebook has their own passport-facebook package, therefore a 
+ *  link to request the users data isn't required in the same way
+ *  that would be required for a google OAuth request.
+ * 
  */
 passport.use(
     new FacebookStrategy(
