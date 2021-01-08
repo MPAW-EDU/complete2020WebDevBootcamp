@@ -13,12 +13,19 @@ const uuidv4 = require('uuid');
  *  Step 1 & 2 - Google OAuth using Passport
  *  install: passport-google-oauth20
  *  then require it
+ *  Description: A strategy for handling OAuth can be
+ *  setup for most major companies that offer access
+ *  to an authentication server, to the public.
  */
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-// Required for OAuth2.0
+/**
+ * Required for OAuth2.0
+ * Description: Will check in the database if a specific entry
+ * exists, if it doesn't it will create one.
+ */
 const findOrCreate = require('mongoose-findorcreate')
 
 
@@ -154,6 +161,9 @@ passport.use(new GoogleStrategy({
 
 /**
  *  Facebook Login Strategy
+ *  The required way that we tell what exact way facebook has in mind
+ *  for developer to be able to allow their app users to authenticate 
+ *  by using a facebook OAuth.
  */
 passport.use(
     new FacebookStrategy(
@@ -232,7 +242,6 @@ app.get("/secrets", (req,res) => {
     });
 
 });
-
 
 app.get("/submit", (req,res) => {
     if ( req.isAuthenticated ) {
