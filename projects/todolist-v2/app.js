@@ -27,6 +27,8 @@ if (PORT == null || PORT == ""){
 
 /**
  *  Data Persistance using mongo and mongoose
+ * 
+ *  Removed password and username for security purposes
  */
 mongoose.connect("mongodb+srv://< username & password >@cluster0.w0y0c.mongodb.net/todolistDB", { useNewUrlParser: true, useUnifiedTopology: true  })
 

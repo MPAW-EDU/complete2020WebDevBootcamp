@@ -9,7 +9,8 @@ function getDate(){
         day: "numeric",
         month: "long"
     };
-
+    // Converts the date into a selected language,
+    // Chinese in this case
     let day = today.toLocaleString('zh-CN', options);
 
     return day;
