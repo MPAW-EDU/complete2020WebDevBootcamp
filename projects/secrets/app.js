@@ -17,6 +17,7 @@ const uuidv4 = require('uuid');
  *  setup for most major companies that offer access
  *  to an authentication server, to the public.
  */
+
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const FacebookStrategy = require('passport-facebook').Strategy;

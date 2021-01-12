@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const https = require('https');
 const { fail } = require('assert');
+// The port should be set dynamically
 const PORT = 5500;
 
 const app = express();
@@ -37,11 +38,11 @@ app.post("/signup", (req,res) => {
 
     const jsonData = JSON.stringify(data);
 
-    // Insert API and Key Here
+    // Insert API and Key Here, Removed for security purposes
 
 
     const request = https.request(url, options, (response) => {
-
+        // Sending a successCode along with eithe a sucess or failure page
         res.sendFile(`${__dirname}/${response.statusCode===200?"success":"failure"}.html`);
 
         //  res.send(
