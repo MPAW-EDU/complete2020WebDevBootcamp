@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const https = require('https');
 const { fail } = require('assert');
-// The port should be set dynamically
+// The port should be set dynamically,
+// env or a preset default
 const PORT = 5500;
 
 const app = express();
