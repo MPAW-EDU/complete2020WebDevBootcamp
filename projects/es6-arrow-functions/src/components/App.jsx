@@ -2,7 +2,7 @@ import React from "react";
 import Entry from "./Entry";
 import emojipedia from "../emojipedia";
 
-function createEntry(emojiTerm) {
+const createEntry = (emojiTerm) => {
   return (
     <Entry
       key={emojiTerm.id}
@@ -13,7 +13,7 @@ function createEntry(emojiTerm) {
   );
 }
 
-function App() {
+const App = () => {
   return (
     <div>
       <h1>
