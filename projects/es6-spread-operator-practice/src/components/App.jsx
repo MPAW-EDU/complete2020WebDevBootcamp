@@ -6,7 +6,7 @@ function App() {
   const [entry, setEntry] = useState("");
   let isEmpty = () => {
     return (
-      entry===undefined||entry===null||entry[0]===" "
+      entry.length < 1 || entry[0]===" " || entry===null || entry === undefined
     )
   };
 
@@ -17,7 +17,7 @@ function App() {
   }
 
   const handleSubmit = (event) => {
-    if(isEmpty) {
+    if(!isEmpty()) {
       setList(prevList => ([...prevList, entry]))
     }
     setEntry("");
