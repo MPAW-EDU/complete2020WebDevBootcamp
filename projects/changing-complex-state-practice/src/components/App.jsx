@@ -41,9 +41,9 @@ function App() {
       </h1>
       <p>{contact.email}</p>
       <form>
-        <input name="fName" onChange={handleChange} placeholder="First Name" />
-        <input name="lName" onChange={handleChange} placeholder="Last Name" />
-        <input name="email" onChange={handleChange} placeholder="Email" />
+        <input name="fName" onChange={handleChange} value={contact.fName} placeholder="First Name" />
+        <input name="lName" onChange={handleChange} value={contact.lName} placeholder="Last Name" />
+        <input name="email" onChange={handleChange} value={contact.email} placeholder="Email" />
         <button>Submit</button>
       </form>
     </div>
