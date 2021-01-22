@@ -41,11 +41,7 @@ function App() {
       <div>
         <ul>
           {
-            list.map(listItem => {
-              return (
-                <li key={listItem}>{listItem}</li>
-              )
-            })
+            list.map(listItem => <li key={listItem}>{listItem}</li>)
           }
         </ul>
       </div>
