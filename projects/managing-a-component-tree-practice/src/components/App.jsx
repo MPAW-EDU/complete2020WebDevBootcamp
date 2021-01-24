@@ -8,6 +8,7 @@ function App() {
 
   function handleChange(event) {
     const newValue = event.target.value;
+    console.log(newValue);
     setInputText(newValue);
   }
 
